@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var numOfSubarrays = function (arr, k, threshold) {
+        let res = 0
+        const len = arr.length
+        const max = k * threshold
+        let m = 0
+        for (let i = 0; i < len; i++) {
+            m += arr[i]
+            if (i >= k) {
+                m -= arr[i - k]
+            }
+            if (i >= k - 1 && m >= max) res++
+        }
+        return res
+    };
+</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var numRescueBoats = function (people, limit) {
+        let ans = 0;
+        people.sort((a, b) => a - b);
+        let light = 0, heavy = people.length - 1;
+        while (light <= heavy) {
+            if (people[light] + people[heavy] <= limit) {
+                ++light;
+            }
+            --heavy;
+            ++ans;
+        }
+        return ans;
+    }
+</script>
+
+</html>

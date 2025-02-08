@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var maximumBeauty = function (nums, k) {
+        let res = 0, n = nums.length;
+        nums.sort((x, y) => x - y);
+        for (let i = 0, j = 0; i < n; i++) {
+            while (nums[i] - 2 * k > nums[j]) {
+                j++;
+            }
+            res = Math.max(res, i - j + 1);
+        }
+        return res;
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给定一个不含重复数字的整数数组 nums ，返回其 所有可能的全排列 。可以
+    按任意顺序 返回答案。
+  </body>
+  <script>
+    var permute = function (nums) {
+      let result = [];
+      let path = [];
+      let isSelected = new Array(nums.length).fill(false);
+
+      function backtracking(startIndex) {
+        if (path.length === nums.length) {
+          result.push([...path]);
+          return;
+        }
+        for (let i = 0; i < nums.length; i++) {
+          if (!isSelected[i]) {
+            path.push(nums[i]);
+            isSelected[i] = true;
+            backtracking();
+            path.pop();
+            isSelected[i] = false;
+          }
+        }
+      }
+      backtracking();
+      return result;
+    };
+    const nums = [1, 2, 3];
+    const res = permute(nums);
+    console.log(res);
+  </script>
+</html>

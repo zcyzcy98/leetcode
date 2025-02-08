@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var maxSum = function (nums, m, k) {
+        const n = nums.length
+        let answer = 0
+        let window = 0
+        const record = new Map()
+        let left = 0
+
+        for (let right = 0; right < n; right++) {
+            window += nums[right]
+            record.set(nums[right], record.get(nums[right]) + 1 || 1)
+            if (right - left + 1 > k) {
+                window -= nums[left]
+                record.set(nums[left], record.get(nums[left]) - 1)
+                if (record.get(nums[left]) === 0) {
+                    record.delete(nums[left])
+                }
+                left++
+            }
+            if (right - left + 1 === k && record.size >= m) {
+                answer = Math.max(answer, window)
+            }
+        }
+        return answer
+    }
+
+    const nums = [2, 6, 7, 3, 1, 7], m = 3, k = 4
+    maxSum(nums, m, k)
+</script>
+
+</html>

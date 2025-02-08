@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var maximumUniqueSubarray = function (nums) {
+        let ans = 0;
+        let maxAns = 0;
+        let l = -1, r = 0;
+        let map = new Set();
+        // (l,r] 最大得分的子数组 此为循环不变量条件
+        while (r < nums.length) {
+            if (map.has(nums[r])) {
+                // l先加，保证l取到(l,r]中的数值
+                l++
+                // 循环执行，一直到nums[l] === nums[r]停止执行
+                // 执行中，l不断向右移动，ans不断减去移走的l值，map中记录的值不断减去
+                while (nums[l] !== nums[r]) {
+                    // 维护map，使其中的值，一直保持为区间内的值集合
+                    map.delete(nums[l])
+                    // 维护ans为区间内的和值
+                    ans -= nums[l];
+                    l++
+                }
+            } else {
+                // 维护map，使其中的值，一直保持为区间内的值集合
+                map.add(nums[r])
+                // 维护ans为区间内的和值
+                ans += nums[r]
+            }
+            // 区间内ans的和值最大值，保存到maxAns中
+            maxAns = Math.max(ans, maxAns)
+            // r指针一直向右移动，保证能遍历到所有nums中的值
+            r++
+        }
+        return maxAns
+    };
+</script>
+
+</html>

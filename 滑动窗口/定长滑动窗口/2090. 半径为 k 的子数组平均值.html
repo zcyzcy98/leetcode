@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var getAverages = function (nums, k) {
+        let l = 0
+        const max = 2 * k + 1
+        const len = nums.length
+        const res = new Array(len).fill(-1)
+        if (len < max) return res
+        let t = 0
+        for (let i = 0; i < len; i++) {
+            if (i < max - 1) {
+                t += nums[i]
+            } else {
+                t = t + nums[i] - (nums[i - max] ?? 0)
+                res[i - k] = ~~(t / max)
+            }
+        }
+        return res
+    };
+</script>
+
+</html>

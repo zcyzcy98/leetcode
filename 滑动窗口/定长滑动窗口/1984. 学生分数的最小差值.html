@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    nums.sort((a, b) => a - b);
+    let min = -1;
+    let start = 0;
+    let end = k - 1;
+    while (end < nums.length) {
+        min = min == -1 ? nums[end] - nums[start] : Math.min(min, nums[end] - nums[start])
+        end++;
+        start++;
+    }
+    return min;
+</script>
+
+</html>

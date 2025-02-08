@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var getSubarrayBeauty = function (nums, k, x) {
+        const ans = [];
+        const numA = Array(101).fill(0); // 计数数组
+        for (let i = 0; i < k - 1; i++) { // 先将窗口内的前 k - 1 计算
+            numA[nums[i] + 50]++; // 保证下标不会有负数（越界）和大小顺序
+        }
+        for (let i = k - 1; i < nums.length; i++) {
+            let count = 0;
+            numA[nums[i] + 50]++; // 窗口内的数达到 k，开始处理计数数组
+            for (let j = 0; j < 101; j++) {
+                count += numA[j];
+                if (count >= x) { // 如果累加的数等于 x，则说明该位置就是第 x 大的数并且数值为该位置的数只有一个；如果大于 x，则说明第 x 大的数存在于该位置中但是该数值为该位置的数有多个
+                    ans.push(Math.min(j - 50, 0)); // 还原为原来的数值，如果发现大于 0 就说明是正数，取值为 0；将结果推入
+                    break; // 已经找到了不需要再遍历后续计数数组
+                }
+            }
+            numA[nums[i - k + 1] + 50]--; // 删除前一个数的计数值，准备下一次的窗口
+        }
+        return ans;
+    };
+
+
+</script>
+
+</html>

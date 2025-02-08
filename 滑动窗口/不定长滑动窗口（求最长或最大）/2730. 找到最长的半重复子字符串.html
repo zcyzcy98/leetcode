@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    function longestSemiRepetitiveSubstring(s) {
+        //最多有一对相邻字符相等,滑动窗口思想
+        let n = s.length, ans = 1, left = 0, same = 0
+        //same 表示当前滑动窗口中相邻字符相等的数量
+        for (let right = 1; right < n; right++) { //移动右边界
+
+            if (s[right] == s[right - 1] && ++same > 1) { //如果出现相邻字符相等并且same++会超出限制的情况
+                left++  //左边界移动
+                while (s[left] != s[left - 1]) {
+                    left++
+                }
+                //一直移动到多余的重复被清除
+                same = 1 //将滑动窗口内相邻字符数量重置为1
+            }
+            ans = Math.max(ans, right - left + 1)
+        }
+        return ans;
+    };
+    const s = "522533"
+    longestSemiRepetitiveSubstring(s)
+</script>
+
+</html>

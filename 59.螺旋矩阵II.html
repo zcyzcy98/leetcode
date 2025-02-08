@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给你一个正整数 n ，生成一个包含 1 到 n2
+    所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+  </body>
+  <script>
+    const DIRS = [
+      [0, 1],
+      [1, 0],
+      [0, -1],
+      [-1, 0],
+    ]; // 右下左上
+    var generateMatrix = function (n) {
+      const ans = Array.from({ length: n }, () => Array(n).fill(0));
+      let i = 0,
+        j = 0,
+        di = 0;
+      for (let val = 1; val <= n * n; val++) {
+        // 要填入的数
+        ans[i][j] = val;
+        const x = i + DIRS[di][0];
+        const y = j + DIRS[di][1]; // 下一步的位置
+        // 如果 (x, y) 出界或者已经填入数字
+        if (x < 0 || x >= n || y < 0 || y >= n || ans[x][y] !== 0) {
+          di = (di + 1) % 4; // 右转 90°
+        }
+        i += DIRS[di][0];
+        j += DIRS[di][1]; // 走一步
+      }
+      return ans;
+    };
+
+    // 使用示例
+    const matrix = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ];
+    const res = spiralOrder(matrix);
+    console.log(res); //
+  </script>
+</html>

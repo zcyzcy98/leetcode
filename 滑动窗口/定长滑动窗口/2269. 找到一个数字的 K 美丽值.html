@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var divisorSubstrings = function (num, k) {
+        let ret = 0;
+        const numStr = String(num);
+        const tmpArr = [];
+        for (let i = 0; i < k; i++) {
+            tmpArr.push(numStr[i]);
+        }
+        let subNum = Number(tmpArr.join(''));
+        if (subNum !== 0) {
+            if (num % subNum === 0) {
+                ret++;
+            }
+        }
+        for (let i = k; i < numStr.length; i++) {
+            tmpArr.shift();
+            tmpArr.push(numStr[i]);
+            subNum = Number(tmpArr.join(''));
+            if (subNum !== 0) {
+                if (num % subNum === 0) {
+                    ret++;
+                }
+            }
+        }
+        return ret;
+    };
+
+</script>
+
+</html>

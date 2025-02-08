@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var longestOnes = function (nums, k) {
+        const n = nums.length;
+        let left = 0, sum = 0
+        let ans = 0;
+        for (let right = 0; right < n; right++) {
+            sum += nums[right] == 0 ? 1 : 0;
+            while (sum > k) {
+                sum -= nums[left] == 0 ? 1 : 0;
+                left++
+            }
+            ans = Math.max(ans, right - left + 1);
+        }
+        return ans
+    }
+</script>
+
+</html>

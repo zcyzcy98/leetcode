@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var longestSubarray = function (nums, limit) {
+        debugger
+        const queMax = [];
+        const queMin = [];
+        const n = nums.length;
+        let left = 0, right = 0;
+        let ret = 0;
+        while (right < n) {
+            while (queMax.length && queMax[queMax.length - 1] < nums[right]) {
+                queMax.pop();
+            }
+            while (queMin.length && queMin[queMin.length - 1] > nums[right]) {
+                queMin.pop();
+            }
+            queMax.push(nums[right]);
+            queMin.push(nums[right]);
+            while (queMax.length && queMin.length && queMax[0] - queMin[0] > limit) {
+                if (nums[left] === queMin[0]) {
+                    queMin.shift();
+                }
+                if (nums[left] === queMax[0]) {
+                    queMax.shift();
+                }
+                left++;
+            }
+            ret = Math.max(ret, right - left + 1);
+            right++;
+        }
+        return ret;
+    }
+    const nums = [8, 7, 6, 4, 3, 7], limit = 4
+    longestSubarray(nums, limit)
+</script>
+
+</html>
