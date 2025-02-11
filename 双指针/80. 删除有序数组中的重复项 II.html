@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    给你一个有序数组 nums ，请你 原地
+    删除重复出现的元素，使得出现次数超过两次的元素只出现两次
+    ，返回删除后数组的新长度。 不要使用额外的数组空间，你必须在 原地
+    修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+  </body>
+  <script>
+    var removeDuplicates = function (nums) {
+      let stackSize = 2; // 栈的大小，前两个元素默认保留
+      for (let i = 2; i < nums.length; i++) {
+        if (nums[i] !== nums[stackSize - 2]) {
+          // 和栈顶下方的元素比较
+          nums[stackSize++] = nums[i]; // 入栈
+        }
+      }
+      return Math.min(stackSize, nums.length);
+    };
+
+    const nums = [1, 1, 1, 2, 2, 3];
+    const res = removeDuplicates(nums);
+    console.log(res);
+  </script>
+</html>
