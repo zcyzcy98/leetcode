@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给你一个整数数组 nums ，其中 nums[i] 表示第 i
+    个袋子里球的数目。同时给你一个整数 maxOperations 。 你可以进行如下操作至多
+    maxOperations 次： 选择任意一个袋子，并将袋子里的球分到 2
+    个新的袋子中，每个袋子里都有 正整数 个球。 比方说，一个袋子里有 5
+    个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个球，或者分别有 2 个和
+    3 个球。 你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。
+    请你返回进行上述操作后的最小开销。
+  </body>
+  <script>
+    var minimumSize = function (nums, maxOperations) {
+      let start = 1; // 左边查找元素
+      let end = Math.max(...nums); // 右边查找元素
+      let result = 0; // 查找的结果
+      while (start <= end) {
+        // 定义二分法循环结束逻辑
+        const middleValue = Math.floor((end + start) / 2); // 优先找中间的值，也可以用 Math.ceil
+        // 这里把上面的 2 次循环，变成了一个 for 循环
+        let operationsToResult = 0;
+        for (const num of nums) {
+          operationsToResult += Math.ceil(num / middleValue) - 1;
+        }
+        // 分支一：小于等于
+        if (operationsToResult <= maxOperations) {
+          result = middleValue;
+          end = middleValue - 1;
+        } else {
+          // 分支二：大于
+          start = middleValue + 1;
+        }
+      }
+      return result; // 返回结构
+    };
+    const nums = [2, 4, 8, 2],
+      maxOperations = 4;
+    const res = minimumSize(nums, maxOperations);
+    console.log(res); //
+  </script>
+</html>
