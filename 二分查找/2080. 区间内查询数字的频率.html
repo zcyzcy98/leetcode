@@ -54,7 +54,7 @@
         high = pos.length - 1;
       while (low <= high) {
         const mid = low + Math.floor((high - low) / 2);
-        if (pos[mid] <= target) {
+        if (pos[mid] < target) {
           low = mid + 1;
         } else {
           high = mid - 1;
