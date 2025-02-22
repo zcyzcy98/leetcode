@@ -24,14 +24,14 @@
       let res = 0;
       const even = Math.floor(days / 2);
       const odd = days - even;
-      let j = length - 1;
+      let j = length;
       for (let i = 0; i < odd; i++) {
-        res += pizzas[j];
         j--;
+        res += pizzas[j];
       }
       for (let i = 0; i < even; i++) {
-        res += pizzas[j];
         j -= 2;
+        res += pizzas[j];
       }
       return res;
     };
