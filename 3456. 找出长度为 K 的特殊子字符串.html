@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给你一个 正 整数 n 。 用 even 表示在 n 的二进制形式（下标从 0 开始）中值为 1
+    的偶数下标的个数。 用 odd 表示在 n 的二进制形式（下标从 0 开始）中值为 1
+    的奇数下标的个数。 请注意，在数字的二进制表示中，位下标的顺序 从右到左。
+    返回整数数组 answer ，其中 answer = [even, odd] 。
+  </body>
+  <script>
+    var hasSpecialSubstring = function (s, k) {
+      let n = s.length;
+      let cnt = 0;
+      for (let i = 0; i < n; i++) {
+        cnt++;
+        if (s[i] != s[i + 1]) {
+          if (cnt === k) return true;
+          cnt = 0;
+        }
+      }
+      return false
+    };
+
+    const s = "aabaaa";
+    const k = 3;
+
+    const res = hasSpecialSubstring(s, k);
+    console.log(res); //
+  </script>
+</html>
