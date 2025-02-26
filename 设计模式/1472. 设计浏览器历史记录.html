@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    你有一个只支持单个标签页的 浏览器 ，最开始你浏览的网页是 homepage
+    ，你可以访问其他的网站 url ，也可以在浏览历史中后退 steps 步或前进 steps
+    步。 请你实现 BrowserHistory 类： BrowserHistory(string homepage) ，用
+    homepage 初始化浏览器类。 void visit(string url) 从当前页跳转访问 url
+    对应的页面 。执行此操作会把浏览历史前进的记录全部删除。 string back(int
+    steps) 在浏览历史中后退 steps 步。如果你只能在浏览历史中后退至多 x 步且
+    steps > x ，那么你只后退 x 步。请返回后退 至多 steps 步以后的 url 。 string
+    forward(int steps) 在浏览历史中前进 steps 步。如果你只能在浏览历史中前进至多
+    x 步且 steps > x ，那么你只前进 x 步。请返回前进 至多 steps步以后的 url 。
+  </body>
+  <script>
+    var BrowserHistory = function (homepage) {
+      this.pages = [homepage];
+      this.currentIndex = 0;
+    };
+
+    /**
+     * @param {string} url
+     * @return {void}
+     */
+    BrowserHistory.prototype.visit = function (url) {
+      this.pages = this.pages.slice(0, this.currentIndex + 1);
+      this.pages.push(url);
+      this.currentIndex++;
+    };
+
+    /**
+     * @param {number} steps
+     * @return {string}
+     */
+    BrowserHistory.prototype.back = function (steps) {
+      if (steps > this.currentIndex) {
+        console.info(steps);
+        this.currentIndex = 0;
+        return this.pages[this.currentIndex];
+        // this.pages = this.pages.splice(0, 1);
+      } else {
+        this.currentIndex = this.currentIndex - steps;
+        return this.pages[this.currentIndex];
+      }
+    };
+
+    /**
+     * @param {number} steps
+     * @return {string}
+     */
+    BrowserHistory.prototype.forward = function (steps) {
+      const length = this.pages.length;
+      if (steps > length - this.currentIndex - 1) {
+        this.currentIndex = length - 1;
+        return this.pages[this.currentIndex];
+      } else {
+        this.currentIndex = this.currentIndex + steps;
+        return this.pages[this.currentIndex];
+      }
+    };
+  </script>
+</html>
