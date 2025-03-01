@@ -22,54 +22,42 @@
   </body>
   <script>
     var TextEditor = function () {
-      this.text = "";
-      this.cursor = 0;
+      this.left = [];
+      this.right = [];
     };
 
     TextEditor.prototype.addText = function (text) {
-      this.text =
-        this.text.slice(0, this.cursor) + text + this.text.slice(this.cursor);
-      this.cursor += text.length;
+      for (let i = 0; i < text.length; i++) {
+        this.left.push(text[i]);
+      }
     };
 
-    /**
-     * @param {number} k
-     * @return {number}
-     */
     TextEditor.prototype.deleteText = function (k) {
-      k = Math.min(k, this.cursor);
-      this.text =
-        this.text.slice(0, this.cursor - k) + this.text.slice(this.cursor);
-      this.cursor -= k;
-      return k;
+      let count = Math.min(k, this.left.length);
+      for (let i = 0; i < count; i++) {
+        this.left.pop();
+      }
+      return count;
     };
 
-    /**
-     * @param {number} k
-     * @return {string}
-     */
     TextEditor.prototype.cursorLeft = function (k) {
-      if (this.cursor - k < 0) {
-        this.cursor = 0;
-      } else {
-        this.cursor -= k;
+      let move = Math.min(k, this.left.length);
+      for (let i = 0; i < move; i++) {
+        this.right.push(this.left.pop());
       }
-      let len = Math.min(10, this.cursor);
-      return this.text.slice(this.cursor - len, this.cursor);
+      return this.getLeftText();
     };
 
-    /**
-     * @param {number} k
-     * @return {string}
-     */
     TextEditor.prototype.cursorRight = function (k) {
-      if (this.cursor + k > this.text.length) {
-        this.cursor = this.text.length;
-      } else {
-        this.cursor += k;
+      let move = Math.min(k, this.right.length);
+      for (let i = 0; i < move; i++) {
+        this.left.push(this.right.pop());
       }
-      let len = Math.min(10, this.cursor);
-      return this.text.slice(this.cursor - len, this.cursor);
+      return this.getLeftText();
+    };
+
+    TextEditor.prototype.getLeftText = function () {
+      return this.left.slice(-10).join("");
     };
   </script>
 </html>
