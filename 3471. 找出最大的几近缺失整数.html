@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+  <script>
+    var largestInteger = function (nums, k) {
+      if (k === 1) {
+        let ans = -1;
+        let map = new Map();
+        for (let i = 0; i < nums.length; i++) {
+          map.set(nums[i], map.get(nums[i]) ? map.get(nums[i]) + 1 : 1);
+        }
+        for (let [key, value] of map) {
+          if (value === 1) ans = Math.max(ans, key);
+        }
+        return ans;
+      }
+      if (k === nums.length) {
+        return Math.max(...nums);
+      }
+
+      let head = nums[0];
+      let tail = nums[nums.length - 1];
+
+      if (head === tail) return -1;
+
+      let hasHead = false;
+      let hasTail = false;
+      for (let i = 1; i < nums.length - 1; i++) {
+        if (nums[i] === head) {
+          hasHead = true;
+        } else if (nums[i] === tail) {
+          hasTail = true;
+        }
+      }
+      if (hasHead && hasTail) return -1;
+      if (hasHead) return tail;
+      if (hasTail) return head;
+      return Math.max(head, tail);
+    };
+
+    // 使用示例
+    const nums = [0, 0],
+      k = 2;
+    const res = largestInteger(nums, k);
+    console.log(res);
+  </script>
+</html>
