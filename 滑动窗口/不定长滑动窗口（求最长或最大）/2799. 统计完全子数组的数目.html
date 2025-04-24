@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给你一个由 正 整数组成的数组 nums 。
+    如果数组中的某个子数组满足下述条件，则称之为 完全子数组 ： 子数组中 不同
+    元素的数目等于整个数组不同元素的数目。 返回数组中 完全子数组 的数目。 子数组
+    是数组中的一个连续非空序列。
+  </body>
+  <script>
+    var countCompleteSubarrays = function (nums) {
+      debugger;
+      let res = 0;
+      let cnt = new Map();
+      const n = nums.length;
+      let right = 0;
+      const distinct = new Set(nums).size;
+      console.log(distinct);
+      for (let left = 0; left < n; left++) {
+        if (left > 0) {
+          const remove = nums[left - 1];
+          cnt.set(remove, cnt.get(remove) - 1);
+          if (cnt.get(remove) === 0) {
+            cnt.delete(remove);
+          }
+        }
+        while (right < n && cnt.size < distinct) {
+          const add = nums[right];
+          cnt.set(add, (cnt.get(add) || 0) + 1);
+          right++;
+        }
+        if (cnt.size === distinct) {
+          res += n - right + 1;
+        }
+      }
+      return res;
+    };
+    const nums = [1, 3, 1, 2, 2];
+    const res = countCompleteSubarrays(nums);
+    console.log(res);
+  </script>
+</html>
