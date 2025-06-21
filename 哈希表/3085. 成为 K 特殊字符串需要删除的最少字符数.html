@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    给你一个字符串 word 和一个整数 k。 如果 |freq(word[i]) - freq(word[j])| <= k
+    对于字符串中所有下标 i 和 j 都成立，则认为 word 是 k 特殊字符串。
+    此处，freq(x) 表示字符 x 在 word 中的出现频率，而 |y| 表示 y 的绝对值。
+    返回使 word 成为 k 特殊字符串 需要删除的字符的最小数量。
+  </body>
+  <script>
+    var minimumDeletions = function (word, k) {
+      const cnt = new Map();
+      for (const ch of word) {
+        cnt.set(ch, (cnt.get(ch) || 0) + 1);
+      }
+      let res = word.length;
+      for (const a of cnt.values()) {
+        let deleted = 0;
+        for (const b of cnt.values()) {
+          if (a > b) {
+            deleted += b;
+          } else if (b > a + k) {
+            deleted += b - (a + k);
+          }
+        }
+        res = Math.min(res, deleted);
+      }
+      return res;
+    };
+
+    const word = "ahahnhahhah",
+      k = 1;
+
+    const res = minimumDeletions(word, k);
+    console.log(res); //
+  </script>
+</html>
